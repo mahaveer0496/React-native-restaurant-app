@@ -8,7 +8,7 @@ import {
 
 export default class RestaurantRow extends Component {
 	render() {
-		const {name, description, number} = this.props
+		const {name, description, number, onPress} = this.props
 		return (
 			<View style={styles.ctr}>
 				<View style={styles.restaurantNumber}>
@@ -25,7 +25,9 @@ export default class RestaurantRow extends Component {
 					<Text>{description}</Text>
 				</View>
 
-				<TouchableOpacity style={styles.button}>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={() => onPress('RestaurantInfo')}>
 					<Text style={styles.centerText}>View</Text>
 				</TouchableOpacity>
 			</View>
@@ -38,8 +40,9 @@ const styles = StyleSheet.create({
 		padding         : 20,
 		flexDirection   : 'row',
 		flex            : 1,
-		elevation       : 3,
+		elevation       : 4,
 		backgroundColor : 'white',
+		marginBottom    : 8,
 	},
 	restaurantNumber : {
 		borderRadius    : 20,
@@ -49,13 +52,17 @@ const styles = StyleSheet.create({
 		height          : 40,
 	},
 	restaurantInfo   : {
-		flex : 1,
+		flex        : 1,
+		paddingLeft : 10,
 	},
 	button           : {
-		borderRadius : 10,
-		borderColor  : '#0066cc',
-		borderWidth  : 1,
-		alignSelf    : 'flex-start',
+		padding         : 10,
+		borderRadius    : 20,
+		borderColor     : '#0066cc',
+		borderWidth     : 1,
+		alignSelf       : 'flex-start',
+		elevation       : 5,
+		backgroundColor : 'white',
 	},
 	centerText       : {
 		textAlign : 'center',
@@ -64,10 +71,3 @@ const styles = StyleSheet.create({
 		color : 'white',
 	},
 })
-
-// shadowColor   : 'black',
-// 		shadowOffset  : {
-// 			width  : 5,
-// 			height : 5,
-// 		},
-// 		shadowOpacity : 0.2,

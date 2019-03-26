@@ -4,11 +4,20 @@ import {Text, StyleSheet, View} from 'react-native'
 import RestaurantListContainer from './RestaurantListContainer'
 
 export default class Home extends Component {
+	static navigationOptions = {
+		title : 'Home',
+	}
+	_navigate = (screen, params) => {
+		const {navigate} = this.props.navigation
+		navigate(screen, params)
+	}
+
 	render() {
 		return (
 			<View style={styles.home}>
-				<Text style={styles.homeText}>Home</Text>
-				<RestaurantListContainer />
+				<RestaurantListContainer
+					navigate={this._navigate}
+				/>
 			</View>
 		)
 	}
@@ -22,5 +31,6 @@ const styles = StyleSheet.create({
 		backgroundColor : '#0066cc',
 		color           : 'white',
 		fontSize        : 24,
+		padding         : 10,
 	},
 })
