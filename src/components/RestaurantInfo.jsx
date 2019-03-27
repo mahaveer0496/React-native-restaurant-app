@@ -1,16 +1,19 @@
 import React, {Component} from 'react'
 import {Text, StyleSheet, View, Image} from 'react-native'
+import Header from './Header'
 
 export default class RestaurantInfo extends Component {
 	static navigationOptions = ({navigation}) => {
+		const title = navigation.getParam('name', 'Restaurant')
 		return {
-			title : navigation.getParam('name', 'Restaurant'),
+			headerTitle : (
+				<Header iconName='utensils' title={title} />
+			),
 		}
 	}
 
 	render() {
 		const {navigation} = this.props
-
 		return (
 			<View style={styles.ctr}>
 				<View style={styles.thumbnail}>
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
 		height : 300,
 	},
 	description : {
+		top             : -1,
 		fontSize        : 18,
 		padding         : 10,
 		backgroundColor : '#0066cc',

@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import {Text, StyleSheet, View} from 'react-native'
 
 import RestaurantListContainer from './RestaurantListContainer'
+import Header from './Header'
 
 export default class Home extends Component {
 	static navigationOptions = {
-		title : 'Home',
+		headerTitle : <Header iconName='home' title='Home' />,
 	}
 	_navigate = (screen, params) => {
 		const {navigate} = this.props.navigation
