@@ -27,7 +27,11 @@ export default class RestaurantRow extends Component {
 
 				<TouchableOpacity
 					style={styles.button}
-					onPress={() => onPress('RestaurantInfo')}>
+					onPress={() =>
+						onPress('RestaurantInfo', {
+							name,
+							description,
+						})}>
 					<Text style={styles.centerText}>View</Text>
 				</TouchableOpacity>
 			</View>
