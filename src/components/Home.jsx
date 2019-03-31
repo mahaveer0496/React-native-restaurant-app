@@ -1,12 +1,27 @@
 import React, {Component} from 'react'
 import {Text, StyleSheet, View} from 'react-native'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import RestaurantListContainer from './RestaurantListContainer'
 import Header from './Header'
 
 export default class Home extends Component {
 	static navigationOptions = {
-		headerTitle : <Header iconName='home' title='Home' />,
+		headerTitle : (
+			<Header
+				leftContent={
+					<Icon name='home' size={30} color='white' />
+				}
+				rightContent={
+					<Icon
+						name='search-plus'
+						size={30}
+						color='white'
+					/>
+				}
+				title='Home'
+			/>
+		),
 	}
 	_navigate = (screen, params) => {
 		const {navigate} = this.props.navigation

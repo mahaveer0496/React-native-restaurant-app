@@ -10,6 +10,7 @@ const MainNavigator = createStackNavigator(
 	{
 		Home           : {screen: Home},
 		RestaurantInfo : {screen: RestaurantInfo},
+		// AddRestaurant: {screen: AddRestaurant}
 	},
 	{
 		defaultNavigationOptions : {

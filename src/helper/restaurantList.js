@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid/v4')
 
 const RestaurantList = Array.from({
-	length : 5000,
+	length : 50,
 }).map((item, index) => {
 	const uuid = uuidv4()
 
