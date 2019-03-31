@@ -13,27 +13,20 @@ export default class Header extends Component {
 		)
 	}
 }
-{
-	/* <Icon name={iconName} size={30} color='white' />
-<Text style={styles.text}> {title} </Text> */
-}
-{
-	/* <Icon name={iconNameRight} size={30} color="white"/> */
-}
 
 const styles = StyleSheet.create({
 	ctr  : {
-		flexDirection : 'row',
-		paddingLeft   : 10,
-		justifyContent: 'space-between'
+		flexDirection  : 'row',
+		paddingLeft    : 10,
+		justifyContent : 'space-between',
+		alignItems     : 'center',
+		flex           : 1,
+		padding        : 15,
 	},
 	text : {
 		marginLeft : 10,
 		fontWeight : 'bold',
-		fontSize   : 18,
+		fontSize   : 24,
 		color      : 'white',
 	},
-	left:{
-
-	}
 })

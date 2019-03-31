@@ -7,7 +7,6 @@ import {
 	FlatList,
 } from 'react-native'
 
-import restaurantList from './../helper/restaurantList'
 import RestaurantRow from './RestaurantRow'
 export default class RestaurantListContainer extends PureComponent {
 	keyExtractor = (item, index) => item.id
@@ -16,6 +15,7 @@ export default class RestaurantListContainer extends PureComponent {
 	)
 
 	render() {
+		const {restaurantList} = this.props
 		return (
 			<FlatList
 				data={restaurantList}
