@@ -1,6 +1,13 @@
 # Description
 A small app built with react native to get some familiarity.
 
+# Functionalities
+* Add restaurant
+* View restaurant
+* Search restaurant by name
+* Routing
+* Persitence using `async storage`
+
 # Goals completed
 * Get familiar with  React Native and docs
 * Layout and Styling with React Native Style Sheets
