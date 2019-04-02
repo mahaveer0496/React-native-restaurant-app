@@ -25,7 +25,10 @@ export default class Home extends Component {
 					}
 					rightContent={
 						<Icon
-							onPress={rightIconClick}
+							onPress={() =>
+								navigation.navigate(
+									'AddRestaurant',
+								)}
 							name='plus'
 							size={24}
 							color='white'

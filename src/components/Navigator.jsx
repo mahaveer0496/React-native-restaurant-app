@@ -5,14 +5,16 @@ import {
 
 import Home from './Home'
 import RestaurantInfo from './RestaurantInfo'
+import AddRestaurant from './AddRestaurant'
 
 const MainNavigator = createStackNavigator(
 	{
 		Home           : {screen: Home},
 		RestaurantInfo : {screen: RestaurantInfo},
-		// AddRestaurant: {screen: AddRestaurant}
+		AddRestaurant  : {screen: AddRestaurant},
 	},
 	{
+		initialRouteName         : 'AddRestaurant',
 		defaultNavigationOptions : {
 			headerStyle      : {
 				backgroundColor : '#0066cc',
