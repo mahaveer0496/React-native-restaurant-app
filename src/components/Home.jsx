@@ -5,8 +5,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import RestaurantListContainer from './RestaurantListContainer'
 import Header from './Header'
 import SearchRestaurant from './SearchRestaurant'
+import NoRestaurantScreen from './NoRestaurantScreen';
 
-import restaurantList from './../helper/restaurantList'
+const restaurantList = []
 
 export default class Home extends Component {
 	static navigationOptions = ({navigation}) => {
@@ -80,8 +81,8 @@ export default class Home extends Component {
 
 	render() {
 		const {restaurantList, textFromInput} = this.state
-		return (
-			<View style={styles.home}>
+
+		return restaurantList.length ? <View style={styles.home}>
 				<SearchRestaurant
 					text={textFromInput}
 					onChangeText={this.handleInputTextChange}
@@ -90,8 +91,8 @@ export default class Home extends Component {
 					restaurantList={restaurantList}
 					navigate={this._navigate}
 				/>
-			</View>
-		)
+			</View> :
+			<NoRestaurantScreen navigate={this._navigate}/>
 	}
 }
 

@@ -14,7 +14,7 @@ const MainNavigator = createStackNavigator(
 		AddRestaurant  : {screen: AddRestaurant},
 	},
 	{
-		initialRouteName         : 'AddRestaurant',
+		initialRouteName         : 'Home',
 		defaultNavigationOptions : {
 			headerStyle      : {
 				backgroundColor : '#0066cc',
