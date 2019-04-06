@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {Text, StyleSheet, View, Alert} from 'react-native'
+import {Text, StyleSheet, View, Alert, AsyncStorage} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import RestaurantListContainer from './RestaurantListContainer'
 import Header from './Header'
 import SearchRestaurant from './SearchRestaurant'
-import NoRestaurantScreen from './NoRestaurantScreen';
+import NoRestaurantScreen from './NoRestaurantScreen'
+
 
 const restaurantList = []
 
@@ -50,13 +51,6 @@ export default class Home extends Component {
 		Alert.alert('woot')
 	}
 
-	componentDidMount = () => {
-		const {navigation} = this.props
-		navigation.setParams({
-			rightIconClick : this.rightIconClick,
-		})
-	}
-
 	_navigate = (screen, params) => {
 		const {navigate} = this.props.navigation
 		navigate(screen, params)
@@ -78,21 +72,45 @@ export default class Home extends Component {
 			),
 		})
 	}
-
+	_retrieveData = async () => {
+		try {
+			const value = await AsyncStorage.getItem(
+				'restaurant',
+			)
+			if (value !== null) {
+				console.log(value)
+				this.setState({
+					restaurantList : JSON.parse(value),
+				})
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	componentDidMount = () => {
+		const {navigation} = this.props
+		navigation.setParams({
+			rightIconClick : this.rightIconClick,
+		})
+		this._retrieveData()
+	}
 	render() {
 		const {restaurantList, textFromInput} = this.state
 
-		return restaurantList.length ? <View style={styles.home}>
-				<SearchRestaurant
-					text={textFromInput}
-					onChangeText={this.handleInputTextChange}
-				/>
-				<RestaurantListContainer
-					restaurantList={restaurantList}
-					navigate={this._navigate}
-				/>
-			</View> :
-			<NoRestaurantScreen navigate={this._navigate}/>
+		return(
+			restaurantList.length ? <View style={styles.home}>
+			<SearchRestaurant
+				text={textFromInput}
+				onChangeText={this.handleInputTextChange}
+			/>
+			<RestaurantListContainer
+				restaurantList={restaurantList}
+				navigate={this._navigate}
+			/>
+		</View> :
+		<NoRestaurantScreen navigate={this._navigate} />
+		)
+			
 	}
 }
 

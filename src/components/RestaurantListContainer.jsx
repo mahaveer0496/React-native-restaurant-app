@@ -9,7 +9,7 @@ import {
 
 import RestaurantRow from './RestaurantRow'
 export default class RestaurantListContainer extends PureComponent {
-	keyExtractor = (item, index) => item.id
+	keyExtractor = (item, index) => `${index}`
 	_renderItem = ({item}) => (
 		<RestaurantRow {...item} onPress={this.props.navigate} />
 	)
