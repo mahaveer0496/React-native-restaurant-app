@@ -81,6 +81,7 @@ export default class Home extends Component {
 			console.log(error)
 		}
 	}
+
 	componentDidMount = () => {
 		const {navigation} = this.props
 		navigation.setParams({
@@ -88,6 +89,7 @@ export default class Home extends Component {
 		})
 		this._retrieveData()
 	}
+
 	render() {
 		const {
 			savedRestaurantList,

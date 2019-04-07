@@ -10,9 +10,14 @@ export default class AddRestaurant extends Component {
 		title : 'Add restaurant',
 	}
 
+	state = {
+		name        : '',
+		description : '',
+		url         : '',
+	}
+
 	_storeRestaurant = async () => {
 		try {
-			// AsyncStorage.clear()
 			const value = await AsyncStorage.getItem(
 				'restaurant',
 			)
@@ -38,7 +43,6 @@ export default class AddRestaurant extends Component {
 	}
 
 	render() {
-		const {onChangeText, text} = this.props
 		return (
 			<Fragment>
 				<View style={styles.inputCtr}>
@@ -48,12 +52,11 @@ export default class AddRestaurant extends Component {
 					<TextInput
 						onChangeText={(name) =>
 							this._handleChange('name', name)}
-						ref={(name) => (this.name = name)}
 						style={styles.input}
-						value={text}
 						placeholder='Viva La Vista'
 					/>
 				</View>
+
 				<View style={styles.inputCtr}>
 					<Text style={styles.label}>
 						Add Description
@@ -67,10 +70,10 @@ export default class AddRestaurant extends Component {
 						style={[styles.input]}
 						multiline={true}
 						numberOfLines={4}
-						value={text}
 						placeholder='Best restaurant ever'
 					/>
 				</View>
+
 				<View style={styles.inputCtr}>
 					<Text style={styles.label}>
 						Add Image URL here
@@ -79,10 +82,10 @@ export default class AddRestaurant extends Component {
 						onChangeText={(url) =>
 							this._handleChange('url', url)}
 						style={styles.input}
-						value={text}
-						placeholder='Search restaurant by name'
+						placeholder='https://something.com/image'
 					/>
 				</View>
+
 				<TouchableOpacity
 					style={styles.button}
 					onPress={this._storeRestaurant}>
