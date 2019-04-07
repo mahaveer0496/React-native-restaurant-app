@@ -1,3 +1,4 @@
+import React from 'react'
 import {
 	createStackNavigator,
 	createAppContainer,
@@ -9,7 +10,9 @@ import AddRestaurant from './AddRestaurant'
 
 const MainNavigator = createStackNavigator(
 	{
-		Home           : {screen: Home},
+		Home           : {
+			screen : Home,
+		},
 		RestaurantInfo : {screen: RestaurantInfo},
 		AddRestaurant  : {screen: AddRestaurant},
 	},

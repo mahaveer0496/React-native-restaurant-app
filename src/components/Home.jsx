@@ -1,5 +1,11 @@
 import React, {Component} from 'react'
-import {Text, StyleSheet, View, Alert, AsyncStorage} from 'react-native'
+import {
+	Text,
+	StyleSheet,
+	View,
+	Alert,
+	AsyncStorage,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 import RestaurantListContainer from './RestaurantListContainer'
@@ -7,80 +13,68 @@ import Header from './Header'
 import SearchRestaurant from './SearchRestaurant'
 import NoRestaurantScreen from './NoRestaurantScreen'
 
-
-const restaurantList = []
-
 export default class Home extends Component {
-	static navigationOptions = ({navigation}) => {
-		const rightIconClick = navigation.getParam(
-			'rightIconClick',
-		)
-		return {
-			headerTitle : (
-				<Header
-					leftContent={
-						<Icon
-							name='home'
-							size={24}
-							color='white'
-						/>
-					}
-					rightContent={
-						<Icon
-							onPress={() =>
-								navigation.navigate(
-									'AddRestaurant',
-								)}
-							name='plus'
-							size={24}
-							color='white'
-							solid
-						/>
-					}
-					title='Home'
-				/>
-			),
-		}
-	}
+	static navigationOptions = ({navigation}) => ({
+		headerTitle : (
+			<Header
+				leftContent={
+					<Icon name='home' size={24} color='white' />
+				}
+				rightContent={
+					<Icon
+						onPress={() =>
+							navigation.navigate('AddRestaurant')}
+						name='plus'
+						size={24}
+						color='white'
+						solid
+					/>
+				}
+				title='Home'
+			/>
+		),
+	})
+
 	state = {
-		restaurantList : restaurantList,
-		textFromInput  : '',
+		restaurantList      : [],
+		savedRestaurantList : [],
+		textFromInput       : '',
 	}
 
-	rightIconClick = () => {
-		Alert.alert('woot')
-	}
-
-	_navigate = (screen, params) => {
+	navigate = (screen, params) => {
 		const {navigate} = this.props.navigation
 		navigate(screen, params)
 	}
+
 	filterRestaurantByName = (restaurants, name) => {
+		// debugger
 		if (name)
-			return restaurants.filter(
-				(restaurant) => restaurant.name.search(name) > 0,
+			return restaurants.filter((restaurant) =>
+				restaurant.name.includes(name),
 			)
-		return restaurantList
+		return restaurants
 	}
 
 	handleInputTextChange = (text) => {
+		const {savedRestaurantList} = this.state
+
 		this.setState({
 			textFromInput  : text,
 			restaurantList : this.filterRestaurantByName(
-				restaurantList,
+				savedRestaurantList,
 				text,
 			),
 		})
 	}
 	_retrieveData = async () => {
 		try {
-			const value = await AsyncStorage.getItem(
-				'restaurant',
-			)
+			let value = await AsyncStorage.getItem('restaurant')
+			value = JSON.parse(value).filter(Boolean)
+
 			if (value !== null) {
-				console.log(value)
 				this.setState({
-					restaurantList : JSON.parse(value),
+					savedRestaurantList : value,
+					restaurantList      : value,
 				})
 			}
 		} catch (error) {
@@ -95,22 +89,26 @@ export default class Home extends Component {
 		this._retrieveData()
 	}
 	render() {
-		const {restaurantList, textFromInput} = this.state
+		const {
+			savedRestaurantList,
+			restaurantList,
+			textFromInput,
+		} = this.state
 
-		return(
-			restaurantList.length ? <View style={styles.home}>
-			<SearchRestaurant
-				text={textFromInput}
-				onChangeText={this.handleInputTextChange}
-			/>
-			<RestaurantListContainer
-				restaurantList={restaurantList}
-				navigate={this._navigate}
-			/>
-		</View> :
-		<NoRestaurantScreen navigate={this._navigate} />
-		)
-			
+		if (savedRestaurantList.length > 0)
+			return (
+				<View style={styles.home}>
+					<SearchRestaurant
+						text={textFromInput}
+						onChangeText={this.handleInputTextChange}
+					/>
+					<RestaurantListContainer
+						restaurantList={restaurantList}
+						navigate={this.navigate}
+					/>
+				</View>
+			)
+		return <NoRestaurantScreen navigate={this.navigate} />
 	}
 }
 
